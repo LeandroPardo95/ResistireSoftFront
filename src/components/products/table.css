@@ -1,0 +1,16 @@
+.card {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.card-title {
+  background-color: #ccc;
+  padding: 0.5rem;
+}
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useGetHook = async (url) => {
+export const useGetHook = (url) => {
     const [data, setData] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(false);
@@ -11,15 +11,16 @@ export const useGetHook = async (url) => {
                 let res = await fetch(url);
 
                 if(!res.ok){
-                    throw{
+                    throw new Error({
                         err:true,
                         status:res.status,
                         statusText:res.statusText
-                    }
-                }
+                    });
+                };
 
-                let json = await res.json();
-                setData(json);
+                let data = await res.json();
+
+                setData(data);
                 setIsPending(false);
                 setError({err:false});
 
@@ -28,9 +29,8 @@ export const useGetHook = async (url) => {
                setError(err);
             }    
         }
-
         getData(url);  
-    }, [url])
+    }, [url]);
 
-    return {data,isPending,error}
+    return {data,isPending,error};
 }

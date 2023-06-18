@@ -1,6 +1,19 @@
 import React from "react";
+import Spinner from "../spinner/Spinner";
+import { useGetHook } from "../../hooks/fecthHooks";
 
 const ProductForm = () => {
+  let {
+    data: categories,
+    isPending: categoriesIsPending,
+    error: categoriesError,
+  } = useGetHook("http://localhost:8000/api/product-category/");
+  let {
+    data: measureUnits,
+    isPending: measureUnitsIsPending,
+    error: measureUnitsError,
+  } = useGetHook("http://localhost:8000/api/measure-unit/");
+
   return (
     <form>
       <div className="mb-3">
@@ -42,30 +55,37 @@ const ProductForm = () => {
       </div>
 
       <div className="mb-3">
-      <select className="form-select" aria-label="Default select example">
-        <option selected>Categoria</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
+        <select className="form-select" aria-label="Default select example">
+          {categoriesIsPending ? (
+            <option defaultValue disabled>
+              Cargando...
+            </option>
+          ) : (
+            categories.map((el) => <option value={el.id}>{el.name}</option>)
+          )}
+        </select>
       </div>
 
       <div className="mb-3 d-flex col-12 gap-2">
-      <select className="form-select" aria-label="Default select example">
-        <option selected>Unidad de medida</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
+        <select className="form-select" aria-label="Default select example">
+          {measureUnitsIsPending ? (
+            <option defaultValue disabled>
+              Cargando...
+            </option>
+          ) : (
+            measureUnits.map((el) => (
+              <option value={el.id}>{el.description}</option>
+            ))
+          )}
+        </select>
 
-      <input
+        <input
           type="number"
           className="form-control"
           placeholder="Unidades"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
         />
-
       </div>
       <div className="mb-3 d-flex col-12 gap-2 justify-content-end">
         <button type="submit" className="btn btn-primary">

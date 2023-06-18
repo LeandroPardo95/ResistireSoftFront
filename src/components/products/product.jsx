@@ -6,18 +6,24 @@ const Product = ({ data }) => {
       <tr>
         <th scope="row">{data.id}</th>
         <td>{data.name}</td>
+        <td>{data.description}</td>
         <td>${data.cost}</td>
         <td>{data.stock}</td>
-        <td className="">
-          <button className="btn btn-primary ms-1">
-            <i className="bi bi-pencil"></i>
-          </button>
-          <button className="btn btn-danger ms-1">
+        <td>{data.category}</td>
+        <td>{data.units}</td>
+        <td>{data.discount}</td>
+        <td>
+          <i className="bi bi-pencil text-primary"></i>
+        </td>
+        <td>
+          <a href="#" className="text-danger">
             <i className="bi bi-trash3"></i>
-          </button>
-          <button className="btn btn-success ms-1">
+          </a>
+        </td>
+        <td>
+          <a href="#" className="text-success">
             <i className="bi bi-eye"></i>
-          </button>
+          </a>
         </td>
       </tr>
     </>
